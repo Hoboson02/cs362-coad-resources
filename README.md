@@ -26,6 +26,9 @@ bundle install
 ```
 
 Next, set up the database:
+```
+
+Set environment variables (see _.env.example_ for expectations):
 
 ```
 rails db:setup
