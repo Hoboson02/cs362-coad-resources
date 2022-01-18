@@ -104,4 +104,4 @@ Recaptcha
 ![erd](public/documentation/erd.jpg?raw=true)
 
 
-&copy; 2020 Doug Dennis, James Martinez, Ryder McDowell. All rights reserved.
+&copy; 2020 Doug Dennis, Ryan Earl, James Martinez, Ryder McDowell. All rights reserved.
