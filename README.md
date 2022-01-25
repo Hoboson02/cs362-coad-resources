@@ -4,6 +4,8 @@ This is the GitHub repository for the Central Oregon Community Organizations Act
 in Disaster (COAD) help service system. It connects people in need with resources
 made available by members of Community Organizations Active in Disaster.
 
+[![Ruby on Rails CI](https://github.com/Hoboson02/cs362-coad-resources/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/Hoboson02/cs362-coad-resources/actions/workflows/rubyonrails.yml)
+
 ## Development
 
 Fork the repository:
