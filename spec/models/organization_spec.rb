@@ -79,6 +79,33 @@ RSpec.describe Organization, type: :model do
         end
     end
 
+    describe "validations" do
+        it { should validate_presence_of(:name) }
+        it { should validate_presence_of(:email) }
+        it { should validate_presence_of(:phone) }
+        it { should validate_presence_of(:status) }
+        it { should validate_presence_of(:primary_name) }
+        it { should validate_presence_of(:secondary_name) }
+        it { should validate_presence_of(:secondary_phone) }
+
+        it { should validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
+
+        it "only allows valid email addresses and not invalid ones" do
+            should allow_value("fakeemail@fake.com").for(:email)
+            should_not allow_value("fakeemail@fake").for(:email)
+            should_not allow_value("fakeemail@.com").for(:email)
+            should_not allow_value("fakeemailfake.com").for(:email)
+            should_not allow_value("@fake.com").for(:email)
+            should_not allow_value("").for(:email)
+        end
+        
+        it { should validate_uniqueness_of(:email).case_insensitive }
+
+        it { should validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
+        it { should validate_uniqueness_of(:name).case_insensitive }
+        it { should validate_length_of(:description).is_at_most(1020).on(:create) }
+    end
+
     describe "#approve" do
         it "changes status to approved from other status" do
             organization = Organization.new
