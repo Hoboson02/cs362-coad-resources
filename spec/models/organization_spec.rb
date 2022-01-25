@@ -18,6 +18,11 @@ RSpec.describe Organization, type: :model do
             expect(organization).to respond_to(:status)
         end
 
+        it "has a status of submitted after initialization" do
+            organization = Organization.new
+            expect(organization.status).to eq("submitted")
+        end
+
         it "has a transportation enum" do
             organization = Organization.new
             expect(organization).to respond_to(:transportation)
