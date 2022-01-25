@@ -79,4 +79,46 @@ RSpec.describe Organization, type: :model do
         end
     end
 
+    describe "#approve" do
+        it "changes status to approved from other status" do
+            organization = Organization.new
+            expect(organization.status).to_not eq("approved")
+            organization.approve
+            expect(organization.status).to eq("approved")
+        end
+    end
+
+    describe "#reject" do
+        it "changes status to rejected from other status" do
+            organization = Organization.new
+            expect(organization.status).to_not eq("rejected")
+            organization.reject
+            expect(organization.status).to eq("rejected")
+        end
+    end
+
+    describe "#set_default_status" do
+        it "sets the status to submitted from nil" do
+            organization = Organization.new
+            organization.status = nil
+            expect(organization.status).to_not eq("submitted")
+            organization.set_default_status
+            expect(organization.status).to eq("submitted")
+        end
+
+        it "won't change status if it is not nill" do
+            organization = Organization.new
+            organization.status = "approved"
+            organization.set_default_status
+            expect(organization.status).to eq("approved")
+        end
+    end
+
+    describe "#to_so" do
+        it "returns the name" do
+            organization = Organization.new
+            organization.name = "Fake Name"
+            expect(organization.to_s).to eq("Fake Name")
+        end
+    end
 end
