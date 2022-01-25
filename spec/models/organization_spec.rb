@@ -106,6 +106,12 @@ RSpec.describe Organization, type: :model do
         it { should validate_length_of(:description).is_at_most(1020).on(:create) }
     end
 
+    describe "associations" do
+        it { should have_many(:users) }
+        it { should have_many(:tickets) }
+        it { should have_and_belong_to_many(:resource_categories) }
+    end
+
     describe "#approve" do
         it "changes status to approved from other status" do
             organization = Organization.new
