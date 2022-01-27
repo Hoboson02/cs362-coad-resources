@@ -76,4 +76,14 @@ RSpec.describe Ticket, type: :model do
             expect(ticket.captured?).to eq(true)
         end
     end
+
+    describe "#to_s" do
+        it "returns a string identifying the ticket number" do
+            ticket = Ticket.new
+            fake_id = -1
+            expected_result = "Ticket #{fake_id}"
+            ticket.id = fake_id
+            expect(ticket.to_s).to eq(expected_result)
+        end
+    end
 end
