@@ -27,10 +27,9 @@ gem install bundler
 bundle install
 ```
 
-Next, set up the database:
-```
+You will need to set environment variables by creating a .env file. Use _.env.example_ as a template.
 
-Set environment variables (see _.env.example_ for expectations):
+Next, set up the database:
 
 ```
 rails db:setup
@@ -97,7 +96,7 @@ Seed the rails database of a heroku app:
 heroku run rails db:seed --remote staging
 ```
 
-Set environment variables (see _.env.example_ for expectations):
+You will need to set environment variables by creating a .env file. Use _.env.example_ as a template.
 
 ```
 heroku config:set FOO=bar
