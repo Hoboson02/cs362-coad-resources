@@ -44,7 +44,20 @@ RSpec.describe Ticket, type: :model do
         it "has a closed_at" do
             ticket = Ticket.new
             expect(ticket).to respond_to(:closed_at)
+        end     
+    end
+
+    describe "#open?" do
+        it "is open when it hasn't been closed" do
+            ticket = Ticket.new(closed: false)
+            expect(ticket.closed).to eq(false)
+            expect(ticket.open?).to eq(true)
         end
-        
+
+        it "is not open when it has been closed" do
+            ticket = Ticket.new(closed: true)
+            expect(ticket.closed).to eq(true)
+            expect(ticket.open?).to eq(false)
+        end
     end
 end
