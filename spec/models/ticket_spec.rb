@@ -60,4 +60,20 @@ RSpec.describe Ticket, type: :model do
             expect(ticket.open?).to eq(false)
         end
     end
+
+    describe "#captured?" do
+        it "is not captured when an organization is not present" do
+            ticket = Ticket.new
+            expect(ticket.organization.present?).to eq(false)
+            expect(ticket.captured?).to eq(false)
+        end
+
+        it "is captured when an organization is present" do
+            ticket = Ticket.new
+            ticket.organization = nil
+            expect(ticket.captured?).to eq(false)
+            ticket.organization = Organization.new
+            expect(ticket.captured?).to eq(true)
+        end
+    end
 end
