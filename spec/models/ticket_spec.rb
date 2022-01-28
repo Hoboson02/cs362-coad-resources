@@ -47,6 +47,12 @@ RSpec.describe Ticket, type: :model do
         end     
     end
 
+    describe "associations" do
+        it { should belong_to(:region) }
+        it { should belong_to(:resource_category) }
+        it { should belong_to(:organization) }
+    end
+
     describe "#open?" do
         it "is open when it hasn't been closed" do
             ticket = Ticket.new(closed: false)
