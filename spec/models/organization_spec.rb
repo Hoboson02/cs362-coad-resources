@@ -131,7 +131,7 @@ RSpec.describe Organization, type: :model do
         end
     end
 
-    describe "#to_so" do
+    describe "#to_s" do
         it "returns the name" do
             organization.name = "Fake Name"
             expect(organization.to_s).to eq("Fake Name")
