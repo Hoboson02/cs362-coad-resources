@@ -56,9 +56,7 @@ RSpec.describe ResourceCategory, type: :model do
 
   describe "to_s" do
     it "returns the name" do
-      name = 'resources'
-      resource_category = ResourceCategory.new(name: name)
-      expect(resource_category.to_s).to eq(name)
+      expect(resource_category.to_s).to eq(resource_category.name)
     end
   end
 
