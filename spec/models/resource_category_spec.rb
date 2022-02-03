@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
-	let (:resource_category) {ResourceCategory.new(name: "FAKE NAME")}
+	let (:resource_category) {build(:resource_category)}
 	
     describe "attributes" do
         it "has and belongs to many organizations" do
