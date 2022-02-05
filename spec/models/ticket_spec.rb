@@ -51,6 +51,9 @@ RSpec.describe Ticket, type: :model do
     it { should validate_presence_of(:resource_category_id) }
     it { should validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
     it { should validate_length_of(:description).is_at_most(1020).on(:create) }
+    it "validates phone using phony_plausible" do
+      expect(Ticket.validators_on(:phone)).to include(PhonyPlausibleValidator)
+    end
   end
 
   describe "#open?" do
