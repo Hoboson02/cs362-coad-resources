@@ -81,5 +81,28 @@ RSpec.describe ResourceCategory, type: :model do
       result = ResourceCategory.active
       expect(result.length).to eq(0)
     end
-  end 
+  end
+  
+  describe "#inactive" do
+    it "returns the inactive resource category in the database if there is only one" do
+      inactive_resource_category = create(:inactive_resource_category)
+      result = ResourceCategory.inactive
+      expect(result).to include(inactive_resource_category)
+    end
+
+    it "returns all of the inactive resource categories in the database" do
+      inactive_resource_category_1 = create(:inactive_resource_category)
+      inactive_resource_category_2 = create(:inactive_resource_category, name: "Other Fake Name")
+      result = ResourceCategory.inactive
+      expect(result.length).to eq(2)
+      expect(result).to include(inactive_resource_category_1)
+      expect(result).to include(inactive_resource_category_2)
+    end
+
+    it "does not return active resource categories in the database" do
+      active_resource_category = create(:resource_category)
+      result = ResourceCategory.inactive
+      expect(result.length).to eq(0)
+    end
+  end
 end
