@@ -1,0 +1,56 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will generate an Entity-Relationship Diagram for the models, 
+# compare it against the existing one in the repo, and push the updated one
+# if it is different.
+name: "ERD Generation"
+on:
+  push:
+    branches: [ master ]
+    paths-ignore: 
+      - 'public/documentation/erd.png'
+  pull_request:
+    branches: [ master ]
+    paths-ignore: 
+      - 'public/documentation/erd.png'
+  workflow_dispatch:
+jobs:
+  erd:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: development
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@8f312efe1262fb463d906e9bf040319394c18d3e # v1.92
+        with:
+          bundler-cache: true
+          ruby-version: 2.7.5
+      # Set everything up
+      - name: Set up environment for ERD generation
+        run: | 
+          # creates the .env file which is needed for the database to get created
+          cp .env.example .env
+          # add dummy info into the .env file so db:setup will run
+          sed -i "s/ADMINS='CHANGEME'/ADMINS='{admin_name: \"admin_email@domain.com\"}'/" .env
+          sed -i "s/TEST_USER_EMAIL='CHANGEME'/TEST_USER_EMAIL='user@domain.com'/" .env
+          # setup the db
+          bin/rails db:setup
+          # graphviz is needed for rails-erd to generate png files
+          sudo apt install graphviz
+          # create the public/documentation directory if it doesn't already exist
+          mkdir --parents public/documentation
+      # run the erd function
+      - name: Generate erd.png
+        run: bin/rake erd filename=public/documentation/erd filetype=png title=false
+      - name: Push the new file
+        run: |
+          git config --global user.name 'ERD Bot'
+          git config --global user.email 'ERDBot@domain.com'
+          git add public/documentation/erd.png
+          git commit --allow-empty -m "Updated ERD"
+          if [ -n "$( git diff HEAD~1 -- public/documentation/erd.png )" ]; then git push; else echo "no changes detected so no push made"; fi
