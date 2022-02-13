@@ -109,7 +109,7 @@ Email Server (Gmail)
 Recaptcha
 
 ## Data model
-![erd](public/documentation/erd.jpg?raw=true)
+![erd](public/documentation/erd.png?raw=true)
 
 
 &copy; 2020 Doug Dennis, Ryan Earl, James Martinez, Ryder McDowell. All rights reserved.
