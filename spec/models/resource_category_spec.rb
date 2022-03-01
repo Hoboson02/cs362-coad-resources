@@ -69,7 +69,7 @@ RSpec.describe ResourceCategory, type: :model do
 
     it "returns all of the active resource categories in the database" do
       active_resource_category_1 = create(:resource_category)
-      active_resource_category_2 = create(:resource_category, name: "Other Fake Name")
+      active_resource_category_2 = create(:resource_category)
       result = ResourceCategory.active
       expect(result.length).to eq(2)
       expect(result).to include(active_resource_category_1)
@@ -92,7 +92,7 @@ RSpec.describe ResourceCategory, type: :model do
 
     it "returns all of the inactive resource categories in the database" do
       inactive_resource_category_1 = create(:inactive_resource_category)
-      inactive_resource_category_2 = create(:inactive_resource_category, name: "Other Fake Name")
+      inactive_resource_category_2 = create(:inactive_resource_category)
       result = ResourceCategory.inactive
       expect(result.length).to eq(2)
       expect(result).to include(inactive_resource_category_1)
