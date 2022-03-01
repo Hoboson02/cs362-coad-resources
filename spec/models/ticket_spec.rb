@@ -76,7 +76,7 @@ RSpec.describe Ticket, type: :model do
 
     it "is captured when an organization is present" do
       expect(ticket.captured?).to eq(false)
-      ticket.organization = Organization.new
+      ticket.organization = build(:organization)
       expect(ticket.captured?).to eq(true)
     end
   end
