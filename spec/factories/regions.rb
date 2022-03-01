@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :region do
-        name { 'John Doe' }
+        sequence(:name) { |n| "John Doe#{n}" }
 
         factory :without_name do 
             name { nil }
