@@ -88,4 +88,77 @@ RSpec.describe Ticket, type: :model do
       expect(ticket.to_s).to eq(expected_result)
     end
   end
+
+  describe '::open' do
+    it 'returns tickets that are not closed and do not have an assigned organization' do
+      open_ticket = create(:ticket)
+      expect(open_ticket.closed).to be(false)
+      expect(open_ticket.organization).to be(nil)
+      open_tickets = Ticket.open
+      expect(open_tickets).to include(open_ticket)
+    end
+  end
+
+  describe '::closed' do
+    it 'returns tickets that are closed' do
+      closed_ticket = create(:closed_ticket)
+      expect(closed_ticket.closed).to be(true)
+      closed_tickets = Ticket.closed
+      expect(closed_tickets).to include(closed_ticket)
+    end
+  end
+
+  describe '::all_organization' do
+    it 'returns tickets that are not closed but have an assigned organization' do
+      ticket = create(:ticket)
+      organization = create(:organization)
+      ticket.organization = organization
+      ticket.save
+      expect(ticket.closed).to be(false)
+      all_organization_tickets = Ticket.all_organization
+      expect(all_organization_tickets).to include(ticket)
+    end
+  end
+
+  describe '::organization' do
+    it 'returns tickets assigned to a specific organization that are not closed' do
+      ticket = create(:ticket)
+      organization = create(:organization)
+      ticket.organization = organization
+      ticket.save
+      expect(ticket.closed).to be(false)
+
+      organization_tickets = Ticket.organization(organization.id)
+      expect(organization_tickets).to include(ticket)
+    end
+  end
+
+  describe '::closed_organization' do
+    it 'returns tickets assigned to a specific organization that are closed' do
+      closed_ticket = create(:closed_ticket)
+      organization = create(:organization)
+      closed_ticket.organization = organization
+      closed_ticket.save
+      expect(closed_ticket.closed).to be(true)
+
+      closed_tickets = Ticket.closed_organization(organization.id)
+      expect(closed_tickets).to include(closed_ticket)
+    end
+  end
+
+  describe '::region' do
+    it 'returns tickets that are in a specific region' do
+      ticket = create(:ticket)
+      region_tickets = Ticket.region(ticket.region_id)
+      expect(region_tickets).to include(ticket)
+    end
+  end
+
+  describe '::resource_category' do
+    it 'returns tickets that have a specific resource category' do
+      ticket = create(:ticket)
+      resource_category_tickets = Ticket.resource_category(ticket.resource_category_id)
+      expect(resource_category_tickets).to include(ticket)
+    end
+  end
 end
