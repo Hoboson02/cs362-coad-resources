@@ -2,25 +2,21 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  FAKE_EMAIL = "FakeEmail@fake.com"
-  FAKE_PASSWORD = "FakePassword"
-  let (:user) {User.new(email: FAKE_EMAIL, password: FAKE_PASSWORD)}
+  let (:user) {build(:user)}
 
   describe "attributes" do
     it 'belongs to an organization' do
-      user = User.new
       expect(user).to respond_to(:organization)
     end
 
     it 'sets a default role' do
-      user = User.new
       user.set_default_role
     end
   end
 
   describe "#to_s" do
     it "returns the email" do
-      expect(user.to_s).to eq(FAKE_EMAIL)
+      expect(user.to_s).to eq(user.email)
     end
   end
 
