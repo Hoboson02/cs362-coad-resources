@@ -5,8 +5,8 @@ FactoryBot.define do
     phone { '15555555555' }
     organization { nil }
     closed { false }
-    resource_category { nil }
-    region { nil }
+    resource_category
+    region
 
     factory :closed_ticket do
       closed { true }
