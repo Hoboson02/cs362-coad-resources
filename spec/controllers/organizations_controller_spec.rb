@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe OrganizationsController, type: :controller do
-  describe "user that is not signed in" do
-    it "redirected to sign in" do
+  describe 'user that is not signed in' do
+    it 'redirected to sign in' do
       get :index
       expect(response).to redirect_to(new_user_session_path)
       post :index
@@ -11,29 +11,27 @@ RSpec.describe OrganizationsController, type: :controller do
       expect(response).to redirect_to(new_user_session_path)
       post :create
       expect(response).to redirect_to(new_user_session_path)
-      get :edit, params: {id: "FAKE"}
+      get :edit, params: { id: 'FAKE' }
       expect(response).to redirect_to(new_user_session_path)
-      patch :update, params: {id: "FAKE"}
+      patch :update, params: { id: 'FAKE' }
       expect(response).to redirect_to(new_user_session_path)
-      put :update, params: {id: "FAKE"}
+      put :update, params: { id: 'FAKE' }
       expect(response).to redirect_to(new_user_session_path)
-      get :show, params: {id: "FAKE"}
+      get :show, params: { id: 'FAKE' }
       expect(response).to redirect_to(new_user_session_path)
-      post :approve, params: {id: "FAKE"}
+      post :approve, params: { id: 'FAKE' }
       expect(response).to redirect_to(new_user_session_path)
-      post :reject, params: {id: "FAKE"}
+      post :reject, params: { id: 'FAKE' }
       expect(response).to redirect_to(new_user_session_path)
     end
   end
 
-  describe "organization user" do
-
-    it "redirected to dashboard" do
+  describe 'organization user' do
+    it 'redirected to dashboard' do
       sign_in(create(:organization_user))
-      
-      post :approve, params: {id: "FAKE"}
+      post :approve, params: { id: 'FAKE' }
       expect(response).to redirect_to(dashboard_path)
-      post :reject, params: {id: "FAKE"}
+      post :reject, params: { id: 'FAKE' }
       expect(response).to redirect_to(dashboard_path)
     end
   end
