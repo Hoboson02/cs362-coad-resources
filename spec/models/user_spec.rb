@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { build(:user) }
 
-  let (:user) {build(:user)}
-
-  describe "attributes" do
+  describe 'attributes' do
     it 'belongs to an organization' do
       expect(user).to respond_to(:organization)
     end
@@ -14,8 +13,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#to_s" do
-    it "returns the email" do
+  describe '#to_s' do
+    it 'returns the email' do
       expect(user.to_s).to eq(user.email)
     end
   end
