@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Organization, type: :model do
-
   let(:organization) { build(:organization) }
 
-  describe "attributes" do
-    it "has six agreements labeled agreement_{number}" do
+  describe 'attributes' do
+    it 'has six agreements labeled agreement_{number}' do
       expect(organization).to respond_to(:agreement_one)
       expect(organization).to respond_to(:agreement_two)
       expect(organization).to respond_to(:agreement_three)
@@ -14,60 +13,60 @@ RSpec.describe Organization, type: :model do
       expect(organization).to respond_to(:agreement_six)
     end
 
-    it "has a status" do
+    it 'has a status' do
       expect(organization).to respond_to(:status)
     end
 
-    it "has a status of submitted after initialization" do
-      expect(organization.status).to eq("submitted")
+    it 'has a status of submitted after initialization' do
+      expect(organization.status).to eq('submitted')
     end
 
-    it "has a transportation enum" do
+    it 'has a transportation enum' do
       expect(organization).to respond_to(:transportation)
     end
 
-    it "has users" do
+    it 'has users' do
       expect(organization).to respond_to(:users)
     end
 
-    it "has tickets" do
+    it 'has tickets' do
       expect(organization).to respond_to(:tickets)
     end
 
-    it "has resource categories" do
+    it 'has resource categories' do
       expect(organization).to respond_to(:resource_categories)
     end
 
-    it "has an email" do
+    it 'has an email' do
       expect(organization).to respond_to(:email)
     end
 
-    it "has a name" do
+    it 'has a name' do
       expect(organization).to respond_to(:name)
     end
 
-    it "has a phone" do
+    it 'has a phone' do
       expect(organization).to respond_to(:phone)
     end
 
-    it "has a status" do
+    it 'has a status' do
       expect(organization).to respond_to(:status)
     end
 
-    it "has a primary name" do
+    it 'has a primary name' do
       expect(organization).to respond_to(:primary_name)
     end
 
-    it "has a secondary name" do
+    it 'has a secondary name' do
       expect(organization).to respond_to(:secondary_name)
     end
 
-    it "has a secondary phone" do
+    it 'has a secondary phone' do
       expect(organization).to respond_to(:secondary_phone)
     end
   end
 
-  describe "validations" do
+  describe 'validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:phone) }
@@ -78,15 +77,15 @@ RSpec.describe Organization, type: :model do
 
     it { should validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create) }
 
-    it "only allows valid email addresses and not invalid ones" do
-      should allow_value("fakeemail@fake.com").for(:email)
-      should_not allow_value("fakeemail@fake").for(:email)
-      should_not allow_value("fakeemail@.com").for(:email)
-      should_not allow_value("fakeemailfake.com").for(:email)
-      should_not allow_value("@fake.com").for(:email)
-      should_not allow_value("").for(:email)
+    it 'only allows valid email addresses and not invalid ones' do
+      should allow_value('fakeemail@fake.com').for(:email)
+      should_not allow_value('fakeemail@fake').for(:email)
+      should_not allow_value('fakeemail@.com').for(:email)
+      should_not allow_value('fakeemailfake.com').for(:email)
+      should_not allow_value('@fake.com').for(:email)
+      should_not allow_value('').for(:email)
     end
-        
+
     it { should validate_uniqueness_of(:email).case_insensitive }
 
     it { should validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create) }
@@ -94,47 +93,46 @@ RSpec.describe Organization, type: :model do
     it { should validate_length_of(:description).is_at_most(1020).on(:create) }
   end
 
-  describe "associations" do
+  describe 'associations' do
     it { should have_many(:users) }
     it { should have_many(:tickets) }
     it { should have_and_belong_to_many(:resource_categories) }
   end
 
-  describe "#approve" do
-    it "changes status to approved from other status" do
-      expect(organization.status).to_not eq("approved")
+  describe '#approve' do
+    it 'changes status to approved from other status' do
+      expect(organization.status).to_not eq('approved')
       organization.approve
-      expect(organization.status).to eq("approved")
+      expect(organization.status).to eq('approved')
     end
   end
 
-  describe "#reject" do
-    it "changes status to rejected from other status" do
-      expect(organization.status).to_not eq("rejected")
+  describe '#reject' do
+    it 'changes status to rejected from other status' do
+      expect(organization.status).to_not eq('rejected')
       organization.reject
-      expect(organization.status).to eq("rejected")
+      expect(organization.status).to eq('rejected')
     end
   end
 
-  describe "#set_default_status" do
-    it "sets the status to submitted from nil" do
+  describe '#set_default_status' do
+    it 'sets the status to submitted from nil' do
       organization.status = nil
-      expect(organization.status).to_not eq("submitted")
+      expect(organization.status).to_not eq('submitted')
       organization.set_default_status
-      expect(organization.status).to eq("submitted")
+      expect(organization.status).to eq('submitted')
     end
 
     it "won't change status if it is not nill" do
-      organization.status = "approved"
+      organization.status = 'approved'
       organization.set_default_status
-      expect(organization.status).to eq("approved")
+      expect(organization.status).to eq('approved')
     end
   end
 
-  describe "#to_s" do
-    it "returns the name" do
-      organization.name = "Fake Name"
-      expect(organization.to_s).to eq("Fake Name")
+  describe '#to_s' do
+    it 'returns the name' do
+      expect(organization.to_s).to eq(organization.name)
     end
   end
 end
