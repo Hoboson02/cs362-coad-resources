@@ -2,14 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Creating an Organization Application', type: :feature do
   scenario "user is applying" do
-    skip
-    user = create(:user)
-    user.email = "test@test.com"
-    user.password = "password"
-    user.organization = nil
-    user.role = nil
+    # skip
+    user = build(:user, role: :organization, email: "test@test.com", password: "password")
     user.confirm
-    user.save!
     log_in_as(user)
 
 
