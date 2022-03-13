@@ -38,4 +38,23 @@ RSpec.describe OrganizationsController, type: :controller do
       expect(response).to redirect_to(dashboard_path)
     end
   end
+
+  describe "unapproved organization user" do
+    it 'redirected to dashboard' do
+      user = create(:organization_user)
+      user.organization = create(:organization)
+      sign_in(user)
+
+      expect(user.organization).to_not be_approved
+
+      get :edit, params: { id: 'FAKE' }
+      expect(response).to redirect_to(dashboard_path)
+      patch :update, params: { id: 'FAKE' }
+      expect(response).to redirect_to(dashboard_path)
+      put :update, params: { id: 'FAKE' }
+      expect(response).to redirect_to(dashboard_path)
+      get :show, params: { id: 'FAKE' }
+      expect(response).to redirect_to(dashboard_path)
+    end
+  end
 end
