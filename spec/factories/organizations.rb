@@ -12,5 +12,10 @@ FactoryBot.define do
     secondary_phone { '15555555556' }
     title { 'FakeTitle' }
     transportation { 'yes' }
+
+    factory :approved_organization do
+      # this will get called after a create as well
+      after :build, &:approve
+    end
   end
 end
