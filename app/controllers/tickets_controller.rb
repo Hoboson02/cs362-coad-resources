@@ -38,7 +38,7 @@ class TicketsController < ApplicationController
   end
 
   def release
-    return redirect_to dashboard_path unless current_user&.organization&.approved?
+    return redirect_to dashboard_path unless current_user&.organization&.approved? || current_user&.admin?
 
     if TicketService.release_ticket(params[:id], current_user) == :ok
       if current_user.admin?
